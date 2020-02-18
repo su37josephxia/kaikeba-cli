@@ -1,0 +1,21 @@
+
+# 主要功能
+- 代码风格统一
+  - Eslint
+  - Prettier
+  - EditorConfig
+- Jest单元测试
+  - 执行测试
+  - 覆盖率检测
+- 提交前校验钩子配置
+  - 代码风格
+  - Jest
+- TravisCI配置
+  - 模板
+  - 配置
+- Docker部署
+  - nginx模板
+  - 反向代理配置
+  - 域名配置
+- 生成Readme模板
+- 修改package描述
