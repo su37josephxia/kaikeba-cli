@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+const program = require('commander')
+const {
+    init,
+    refresh,
+    serve
+} = require('../lib/api')
+program.version(require('../package').version)
+
+program
+    .command('init <name>')
+    .description('init project')
+    .action(init)
+
+program
+    .command('ui')
+    .description('start UI')
+    .action(() => {
+        console.log('start UI ....')
+    })
+program
+    .command('serve')
+    .description('serve project')
+    .action(serve)
+
+program
+    .command('refresh')
+    .description('refresh routers...')
+    .action(refresh)
+program.parse(process.argv)

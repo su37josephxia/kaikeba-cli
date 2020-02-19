@@ -1,6 +1,6 @@
 {
   "name": "kaikeba-cli",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "directories": {
@@ -8,6 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "kkb": "./bin/kkb"
   },
   "repository": {
     "type": "git",
@@ -19,5 +22,13 @@
   "bugs": {
     "url": "https://github.com/su37josephxia/kaikeba-cli/issues"
   },
-  "homepage": "https://github.com/su37josephxia/kaikeba-cli#readme"
+  "homepage": "https://github.com/su37josephxia/kaikeba-cli#readme",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "download-git-repo": "^3.0.2",
+    "fs": "0.0.1-security",
+    "handlebars": "^4.7.3",
+    "log-symbols": "^3.0.0",
+    "ora": "^4.0.3"
+  }
 }
