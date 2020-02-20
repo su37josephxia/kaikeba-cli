@@ -1,10 +1,13 @@
 #!/usr/bin/env node
+
 const program = require('commander')
 const {
     init,
     refresh,
     serve
 } = require('../lib/api')
+
+const startUI = require('../lib/ui')
 program.version(require('../package').version)
 
 program
@@ -15,9 +18,7 @@ program
 program
     .command('ui')
     .description('start UI')
-    .action(() => {
-        console.log('start UI ....')
-    })
+    .action(startUI)
 program
     .command('serve')
     .description('serve project')
