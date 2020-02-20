@@ -25,11 +25,16 @@
   "homepage": "https://github.com/su37josephxia/kaikeba-cli#readme",
   "dependencies": {
     "chalk": "^3.0.0",
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
     "download-git-repo": "^3.0.2",
+    "express": "^4.17.1",
+    "figlet": "^1.2.4",
     "fs": "0.0.1-security",
     "handlebars": "^4.7.3",
     "log-symbols": "^3.0.0",
     "open": "^7.0.2",
-    "ora": "^4.0.3"
+    "ora": "^4.0.3",
+    "socket.io": "^2.2.0"
   }
 }
