@@ -5,11 +5,16 @@ const io = require('socket.io')(http)
 const path = require('path')
 
 
-// app.get('/', function(req, res){
-//   res.sendFile(__dirname + '/index.html');
-// });
+app.get('/api/abc', function(req, res){
+  console.log('abc....')
+  res.json({
+    abc:123
+  })
+});
 
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+// app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+
 
 io.on('connection', function(socket){
   console.log('a user connected');
@@ -30,8 +35,8 @@ io.on('connection', function(socket){
 });
 
 if (!module.parent) {
-  app.listen(3000);
-  console.log('app started at port 3000...');
+  app.listen(4000);
+  console.log('app started at port 4000...');
 } else {
   module.exports = app
 }

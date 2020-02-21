@@ -28,4 +28,12 @@ program
     .command('refresh')
     .description('refresh routers...')
     .action(refresh)
+
+
+program
+    .command('lint')
+    .description('lint')
+    .action(require('../lib/api/lint'))
+
+
 program.parse(process.argv)
