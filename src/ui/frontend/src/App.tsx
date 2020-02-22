@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import { Button } from 'antd';
-console.log('abc')
+
 const logo = require('./logo.svg');
 class App extends React.Component<{}, {}> {
   render() {

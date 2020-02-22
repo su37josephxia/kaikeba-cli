@@ -24,36 +24,6 @@ module.exports = function override(config, env) {
   // For import with absolute path
   config.resolve.modules = [path.resolve('src')].concat(config.resolve.modules)
 
-  // config.devServer = {
-  //   proxy: {
-  //     '/api': {
-  //       target: 'http://localhost:4000',
-  //       pathRewrite: {'^/api' : ''}
-  //     }
-  //   }
-  // }
-
-  config.devServer = {
-    host: '',
-    port: '',
-    contentBase: './',
-    color: true,
-    historyApiFallback: true,
-    inline: true,
-    proxy: {
-      '/api/*': {
-        // target: 'http://vsc.selmif.com/',
-        // secure: false,
-        changeOrigin: true,
-        target: 'http://localhost:4000',
-        pathRewrite: { '^/api': '' }
-      }
-    }
-  },
-  config.watch = true
-
-  console.log('====config', config)
-  debugger
 
   return config
 }

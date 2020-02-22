@@ -29,5 +29,15 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "lint": "tslint -p tsconfig.json"
+  },
+
+  "proxy": {
+    "/api/": {
+      "changeOrigin": true,
+      "target": "http://localhost:4000",
+      "pathRewrite": {
+        "^": ""
+      }
+    }
   }
 }
