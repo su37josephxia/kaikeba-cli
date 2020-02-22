@@ -16,10 +16,12 @@
     "@types/node": "^8.0.17",
     "@types/react": "^16.0.31",
     "@types/react-dom": "^16.0.3",
+    "@types/socket.io-client": "^1.4.32",
     "antd": "^3.0.1",
     "prettier": "^1.19.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "socket.io-client": "^2.3.0",
     "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0"
   },
@@ -30,11 +32,17 @@
     "eject": "react-scripts-ts eject",
     "lint": "tslint -p tsconfig.json"
   },
-
   "proxy": {
     "/api/": {
       "changeOrigin": true,
       "target": "http://localhost:4000",
+      "pathRewrite": {
+        "^": ""
+      }
+    },
+    "/socket.io/": {
+      "changeOrigin": true,
+      "target": "ws://localhost:4000",
       "pathRewrite": {
         "^": ""
       }
