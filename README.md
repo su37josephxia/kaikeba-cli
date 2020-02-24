@@ -18,7 +18,7 @@ kkb ui
 
 
 ## Developing
-
+### 命令行部分
 ```bash
 # clone first
 npm i
@@ -26,6 +26,16 @@ npm link
 kkb ui
 
 ```
+### ui部分
+## 启动后端
+```bash
+cd src/ui/backend
+nodemon index.js
+
+cd src/ui/frontend
+npm start
+```
+
 
 
 

@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 module.exports = function override(config, env) {
   const oneOf = config.module.rules.find(conf => {
     return conf.oneOf
@@ -23,6 +24,13 @@ module.exports = function override(config, env) {
   const path = require('path')
   // For import with absolute path
   config.resolve.modules = [path.resolve('src')].concat(config.resolve.modules)
+
+  config.plugins.unshift(
+    new webpack.NormalModuleReplacementPlugin(/debug/, process.cwd() + '/src/support/noop.js'),
+  )
+  console.log('config', config.plugins)
+  // replace socket.io-parser with socket.io-json-parser
+  // new webpack.NormalModuleReplacementPlugin(/socket\.io-parser/, 'socket.io-json-parser'),
 
 
   return config

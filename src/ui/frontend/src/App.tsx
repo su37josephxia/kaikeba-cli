@@ -19,8 +19,8 @@ class App extends React.Component<{}, {}> {
 
     // this.socket = io()
 
-    socket.on('message', (data: any) => {
-      console.log('receive:', data)
+    socket.on('console', (data: any) => {
+      console.log('console receive:', data)
     })
   }
   handleClick() {
@@ -29,7 +29,12 @@ class App extends React.Component<{}, {}> {
     //   isToggleOn: !prevState.isToggleOn
     // }));
 
-    socket.emit("message", 'do:lint');
+    socket.emit("command", {
+      command: 'lint',
+      payload: {
+        data: 'abc'
+      }
+    });
   }
 
   render() {

@@ -5,12 +5,6 @@ const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const path = require('path')
-app.get('/api/abc', function (req, res) {
-  console.log('abc....')
-  res.json({
-    abc: 123
-  })
-});
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 // app.use(express.static(path.join(__dirname,'./')))
@@ -18,21 +12,30 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 io.on('connection', function (socket) {
   console.log('a user connected');
 
-  //响应某用户发送消息
-  socket.on('message', function (msg) {
-    console.log('chat message:' + msg);
-    // 广播给所有人
-    io.emit('message', msg);
-    // 广播给除了发送者外所有人
-    // socket.broadcast.emit('chat message', msg)
-    if (msg === 'do:lint') {
-      const lint = require('../../../lib/api/lint')
-      lint().on('data', data => {
-        console.log('lint..', data)
-        io.emit('message', data.toString())
-      })
+  socket.on('command', msg => {
+    console.log('msg', msg, `../../../lib/api/${msg.command}`)
+    if (msg.command) {
+      require(`../../../lib/api/${msg.command}`)
+        (msg.payload)
+        .on('data', data => {
+          // console.log('console..', data.toString())
+          io.emit('console', data.toString())
+        })
     }
-  });
+  })
+
+  // 
+  // socket.on('console', function (msg) {
+
+  //   // 广播给除了发送者外所有人
+  //   // socket.broadcast.emit('chat message', msg)
+  //   if (msg === 'do:lint') {
+  //     const lint = require('../../../lib/api/lint')
+  //     lint().on('data', data => {
+
+  //     })
+  //   }
+  // });
 
   socket.on('disconnect', function () {
     console.log('user disconnected');
