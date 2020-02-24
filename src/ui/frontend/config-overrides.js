@@ -28,10 +28,6 @@ module.exports = function override(config, env) {
   config.plugins.unshift(
     new webpack.NormalModuleReplacementPlugin(/debug/, process.cwd() + '/src/support/noop.js'),
   )
-  console.log('config', config.plugins)
-  // replace socket.io-parser with socket.io-json-parser
-  // new webpack.NormalModuleReplacementPlugin(/socket\.io-parser/, 'socket.io-json-parser'),
-
 
   return config
 }
