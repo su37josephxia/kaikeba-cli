@@ -46,9 +46,19 @@ npm start
 
 
 ## Features
-
 - 代码格式检查
+    - ESLint规则
+    - Prettier格式化代码
+    - EditorConfig编码样式统一
+    - 设置Git提交的校验钩子
 - Jest单元测试
+    - 测试驱动开发
+    - 覆盖率报告
+    - 设置Git提交的校验钩子
 - Docker部署支持
+    - 一键服务器部署
 - TravisCI支持
+    - 自动化回归测试
+    - 服务器部署
+    - Codecov是一个开源的测试结果展示
 
