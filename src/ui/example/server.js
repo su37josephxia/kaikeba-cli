@@ -39,38 +39,33 @@ io.on('connection', function (socket) {
 		console.log('receive console: ', command)
 		if (command === '') return
 		const { spawn } = require('child_process')
-			const [cwd, ...args] = command.split(' ')
-			const proc = spawn(cwd, args);
-			proc.stdout.pipe(process.stdout)
-			proc.stderr.pipe(process.stderr)
-			proc.stdout.on('data', data => {
-				io.emit('console', data.toString())
-			})
-			proc.stderr.on('data', data => {
-				io.emit('console', data.toString())
-			})
-			proc.on('error',error => {
-				io.emit('console', error.toString())
-			})
+		const [cwd, ...args] = command.split(' ')
+		const proc = spawn(cwd, args);
+		proc.stdout.pipe(process.stdout)
+		proc.stderr.pipe(process.stderr)
+		proc.stdout.on('data', data => {
+			io.emit('console', data.toString())
+		})
+		proc.stderr.on('data', data => {
+			io.emit('console', data.toString())
+		})
+		proc.on('error', error => {
+			io.emit('console', error.toString())
+		})
 
 	})
 
-	socket.on('command', command => {
-
-		console.log('receive command:', command)
-		//   console.log('msg', msg, `../../../lib/api/${msg.command}`)
-		//   if (msg.command) {
-		// 	require(`../../../lib/api/${msg.command}`)
-		// 	  (msg.payload)
-		// 	  .on('data', data => {
-		// 		// console.log('console..', data.toString())
-		// 		io.emit('console', data.toString())
-		// 	  })
-		//   }
-
-
-
-
+	socket.on('command', msg => {
+		console.log('receive command:', msg)
+		console.log('msg', msg, `../../../lib/api/${msg.command}`)
+		if (msg.command) {
+			require(`../../../lib/api/${msg.command}`)
+				(msg.payload)
+				.on('data', data => {
+					// console.log('console..', data.toString())
+					io.emit('console', data.toString())
+				})
+		}
 	})
 
 	socket.on('disconnect', function () {

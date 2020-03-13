@@ -48,7 +48,7 @@ class EchoConsole extends React.Component<{}, EchoConsoleState> {
 		// 		data: 'abc'
 		// 	}
 		// });
-		
+
 		socket.emit('console', text)
 		this.setState(
 			this.child.console.return
@@ -60,13 +60,36 @@ class EchoConsole extends React.Component<{}, EchoConsoleState> {
 		return 'Miku>'
 	}
 
+	eslint = () => {
+		console.log('eslint....')
+		const logEntry: LogEntry = {
+			label: '',
+			command: 'eslint',
+			message: []
+		}
+		if (this.child.console.state.log.length === 0) {
+			this.child.console.setState({
+				log: [logEntry]
+			}, this.child.console.scrollIfBottom());
+		}
+		socket.emit("command", {
+			command: 'lint',
+			payload: {
+				data: 'abc'
+			}
+		});
+	}
+
 	render() {
-		return <Console ref={ref => this.child.console = ref}
-			handler={this.echo}
-			promptLabel={this.promptLabel}
-			welcomeMessage={"Welcome to the react-console demo!\nThis is an example of a simple echo console."}
-			autofocus={true}
-		/>;
+		return <div>
+			<Console ref={ref => this.child.console = ref}
+				handler={this.echo}
+				promptLabel={this.promptLabel}
+				welcomeMessage={"Welcome to the react-console demo!\nThis is an example of a simple echo console."}
+				autofocus={true}
+			/>
+			<button onClick={this.eslint}>ESLint</button>
+		</div>;
 
 	}
 }
