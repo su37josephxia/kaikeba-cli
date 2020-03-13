@@ -6,7 +6,7 @@ let project = 'react-console';
 
 let FailPlugin = require('webpack-fail-plugin');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const webpack = require('webpack');
 module.exports = {
 	context: __dirname,
 	entry: './src/example.tsx',
@@ -36,6 +36,7 @@ module.exports = {
 	},
 	devtool: 'source-map',
 	plugins: [
+		new webpack.NormalModuleReplacementPlugin(/debug/, process.cwd() + '/src/support/noop.js'),
 		FailPlugin,
 		new ExtractTextPlugin(project + '.example.css'),
 	],

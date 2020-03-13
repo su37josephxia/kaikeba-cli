@@ -4,10 +4,13 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Console, { LogEntry, LogMessage } from 'react-console-component';
 import './main.css';
+import * as io from 'socket.io-client';
+const socket = io();
 
 interface EchoConsoleState {
-	count: number;
+	// count: number;
 }
+
 class EchoConsole extends React.Component<{}, EchoConsoleState> {
 	constructor(props: {}) {
 		super(props);
@@ -15,38 +18,46 @@ class EchoConsole extends React.Component<{}, EchoConsoleState> {
 			count: 0,
 		}
 
-		setInterval(() => {
-			const logEntry: LogEntry = {
-				label: '',
-				command: '',
-				message: []
-			}
-			if (this.child.console.state.log.length === 0) {
-				this.child.console.setState({
-					log: [logEntry]
-				}, this.child.console.scrollIfBottom());
-			}
-			this.child.console.log('text\n' + new Date());
-		}, 100);
+		// setTimeout(() => {
+		// 	const logEntry: LogEntry = {
+		// 		label: '',
+		// 		command: '',
+		// 		message: []
+		// 	}
+		// 	if (this.child.console.state.log.length === 0) {
+		// 		this.child.console.setState({
+		// 			log: [logEntry]
+		// 		}, this.child.console.scrollIfBottom());
+		// 	}
+		// 	this.child.console.log('text\n' + new Date());
+		// }, 100);
+
+		socket.on('console', (data: string) => {
+			console.log('console receive:', data)
+			this.child.console.log(data);
+		})
 	}
 	child: {
 		console?: Console,
 	} = {};
 
 	echo = (text: string) => {
-		console.log('echo:', text)
-		this.child.console.log(text);
+		// socket.emit("command", {
+		// 	command: 'lint',
+		// 	payload: {
+		// 		data: 'abc'
+		// 	}
+		// });
+		
+		socket.emit('console', text)
 		this.setState(
-			{
-				count: this.state.count + 1,
-			},
 			this.child.console.return
 		);
 	}
 
 
 	promptLabel = () => {
-		return '>'
+		return 'Miku>'
 	}
 
 	render() {

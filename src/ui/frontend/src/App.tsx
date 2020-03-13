@@ -2,7 +2,6 @@ import * as React from 'react';
 import './App.css';
 import { Button } from 'antd';
 import io from 'socket.io-client';
-
 const socket = io();
 
 

@@ -2,41 +2,94 @@
 
 "use strict";
 
-const PORT=8080;
+const PORT = 8080;
 
 
 // Webpack build server
-var webpack = require('webpack');
-var config = require('./webpack.config.js');
-var compiler = webpack(config);
-var colors = require('colors');
+const webpack = require('webpack');
+const config = require('./webpack.config.js');
+const compiler = webpack(config);
+const colors = require('colors');
 
-var logSemaphore = 0;
-compiler.watch({},function(err,stats) {
-	console.log(stats.toString({colors:true,chunks:false,children:false}));
+let logSemaphore = 0;
+compiler.watch({}, function (err, stats) {
+	console.log(stats.toString({ colors: true, chunks: false, children: false }));
 	logSemaphore++;
-	setTimeout(function() {
+	setTimeout(function () {
 		logSemaphore--;
-		if(logSemaphore == 0) {
+		if (logSemaphore == 0) {
 			console.log();
 			serverStatus();
 			console.log();
 		}
-	},100);
+	}, 100);
 });
 
 // Express web server
-var express = require('express');
-var app = express();
-var os = require('os');
-var ifaces = os.networkInterfaces();
+const express = require('express');
+const app = express();
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
+const path = require('path')
+
+io.on('connection', function (socket) {
+	console.log('客户端接入');
+
+	socket.on('console', command => {
+		console.log('receive console: ', command)
+		if (command === '') return
+		const { spawn } = require('child_process')
+			const [cwd, ...args] = command.split(' ')
+			const proc = spawn(cwd, args);
+			proc.stdout.pipe(process.stdout)
+			proc.stderr.pipe(process.stderr)
+			proc.stdout.on('data', data => {
+				io.emit('console', data.toString())
+			})
+			proc.stderr.on('data', data => {
+				io.emit('console', data.toString())
+			})
+			proc.on('error',error => {
+				io.emit('console', error.toString())
+			})
+
+	})
+
+	socket.on('command', command => {
+
+		console.log('receive command:', command)
+		//   console.log('msg', msg, `../../../lib/api/${msg.command}`)
+		//   if (msg.command) {
+		// 	require(`../../../lib/api/${msg.command}`)
+		// 	  (msg.payload)
+		// 	  .on('data', data => {
+		// 		// console.log('console..', data.toString())
+		// 		io.emit('console', data.toString())
+		// 	  })
+		//   }
+
+
+
+
+	})
+
+	socket.on('disconnect', function () {
+		console.log('user disconnected');
+	});
+})
+
+
+
+
+const os = require('os');
+const ifaces = os.networkInterfaces();
 
 app.use('/dist', express.static(__dirname + '/dist'));
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/index.html');
 });
 
-app.listen(PORT, function() {
+http.listen(PORT, function () {
 	serverStatus();
 });
 
