@@ -1,30 +1,12 @@
-# Example react-console project
+# 界面简单试验环境
 
-Example React console emulator.
+前后端通用入口 
 
-Used in the [live demo][demo-url].
-
-
-## Usage
-
-Build project:
-
-    npm install
-
+## 启动
 Start dev server:
-
     npm start
 
-Test project:
 
-    npm test
-
-Clean generated files:
-
-    npm run clean
-
-Clean generated files and dependencies:
-
-    npm run clean:deep
-
-[demo-url]: https://autochthe.github.io/react-console/#react-console
+## 功能
+- 调用lib/api中的方法
+- 直接执行终端命令 大家可以用ls试验一下
