@@ -1,0 +1,13 @@
+// {
+//     "presets":[
+//         "es2015",
+//         "react"
+//     ]
+// }
+{
+    "presets": [
+        // "@babel/2015",
+        "@babel/react",
+        "@babel/env"
+    ]
+}

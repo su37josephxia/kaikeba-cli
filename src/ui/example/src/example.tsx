@@ -36,6 +36,7 @@ class EchoConsole extends React.Component<{}, EchoConsoleState> {
 			console.log('console receive:', data)
 			this.child.console.log(data);
 		})
+
 	}
 	child: {
 		console?: Console,
@@ -57,14 +58,13 @@ class EchoConsole extends React.Component<{}, EchoConsoleState> {
 
 
 	promptLabel = () => {
-		return 'Miku>'
+		return '｡:.ﾟヽ(｡◕‿◕｡)ﾉﾟ.:｡+ﾟ>'
 	}
 
-	eslint = () => {
-		console.log('eslint....')
+	initConsole = () => {
 		const logEntry: LogEntry = {
 			label: '',
-			command: 'eslint',
+			command: '',
 			message: []
 		}
 		if (this.child.console.state.log.length === 0) {
@@ -72,9 +72,37 @@ class EchoConsole extends React.Component<{}, EchoConsoleState> {
 				log: [logEntry]
 			}, this.child.console.scrollIfBottom());
 		}
+	}
+
+	eslint = () => {
+		
+		this.initConsole()
 		socket.emit("command", {
 			command: 'lint',
 			payload: {
+				data: 'abc'
+			}
+		});
+	}
+
+	runJest = () => {
+		this.initConsole()
+		socket.emit("command", {
+			command: 'jest',
+			payload: {
+				type: 'run',
+				data: 'abc'
+			}
+		});
+	}
+
+	watchJest = () => {
+		
+		this.initConsole()
+		socket.emit("command", {
+			command: 'jest',
+			payload: {
+				type: 'watch',
 				data: 'abc'
 			}
 		});
@@ -85,11 +113,13 @@ class EchoConsole extends React.Component<{}, EchoConsoleState> {
 			<Console ref={ref => this.child.console = ref}
 				handler={this.echo}
 				promptLabel={this.promptLabel}
-				welcomeMessage={"Welcome to the react-console demo!\nThis is an example of a simple echo console."}
+				welcomeMessage={"Welcome to Miku!\n"}
 				autofocus={true}
 			/>
 			<button onClick={this.eslint}>ESLint</button>
-		</div>;
+			<button onClick={this.runJest}>Run Jest</button>
+			<button onClick={this.watchJest}>Watch Jest</button>
+		</div>
 
 	}
 }

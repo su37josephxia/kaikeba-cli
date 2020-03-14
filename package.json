@@ -10,7 +10,7 @@
     "lint": "eslint"
   },
   "bin": {
-    "kkb": "./bin/kkb"
+    "miku": "./bin/miku.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "figlet": "^1.2.4",
     "fs": "0.0.1-security",
     "handlebars": "^4.7.3",
+    "jest": "^25.1.0",
     "log-symbols": "^3.0.0",
     "open": "^7.0.2",
     "ora": "^4.0.3",

@@ -2,8 +2,11 @@
 
 前后端通用入口 
 
-## 启动
+## 调试
 Start dev server:
+    npm run dev
+
+## 启动   
     npm start
 
 

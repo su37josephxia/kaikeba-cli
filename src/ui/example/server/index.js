@@ -1,46 +1,46 @@
 #!/usr/bin/env node
 
-"use strict";
+"use strict"
 
-const PORT = 8080;
+const PORT = 8080
 
 
 // Webpack build server
-const webpack = require('webpack');
-const config = require('./webpack.config.js');
-const compiler = webpack(config);
-const colors = require('colors');
+const webpack = require('webpack')
+const config = require('../webpack.config.js')
+const compiler = webpack(config)
+const colors = require('colors')
 
-let logSemaphore = 0;
+let logSemaphore = 0
 compiler.watch({}, function (err, stats) {
-	console.log(stats.toString({ colors: true, chunks: false, children: false }));
-	logSemaphore++;
+	console.log(stats.toString({ colors: true, chunks: false, children: false }))
+	logSemaphore++
 	setTimeout(function () {
-		logSemaphore--;
+		logSemaphore--
 		if (logSemaphore == 0) {
-			console.log();
-			serverStatus();
-			console.log();
+			console.log()
+			serverStatus()
+			console.log()
 		}
-	}, 100);
-});
+	}, 100)
+})
 
 // Express web server
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const path = require('path')
 
 io.on('connection', function (socket) {
-	console.log('客户端接入');
+	console.log('客户端接入')
 
 	socket.on('console', command => {
 		console.log('receive console: ', command)
 		if (command === '') return
 		const { spawn } = require('child_process')
 		const [cwd, ...args] = command.split(' ')
-		const proc = spawn(cwd, args);
+		const proc = spawn(cwd, args)
 		proc.stdout.pipe(process.stdout)
 		proc.stderr.pipe(process.stderr)
 		proc.stdout.on('data', data => {
@@ -57,9 +57,9 @@ io.on('connection', function (socket) {
 
 	socket.on('command', msg => {
 		console.log('receive command:', msg)
-		console.log('msg', msg, `../../../lib/api/${msg.command}`)
+		console.log('msg', msg, `../../../../lib/api/${msg.command}`)
 		if (msg.command) {
-			require(`../../../lib/api/${msg.command}`)
+			require(`../../../../lib/api/${msg.command}`)
 				(msg.payload)
 				.on('data', data => {
 					// console.log('console..', data.toString())
@@ -69,34 +69,34 @@ io.on('connection', function (socket) {
 	})
 
 	socket.on('disconnect', function () {
-		console.log('user disconnected');
-	});
+		console.log('user disconnected')
+	})
 })
 
 
 
 
-const os = require('os');
-const ifaces = os.networkInterfaces();
+const os = require('os')
+const ifaces = os.networkInterfaces()
 
-app.use('/dist', express.static(__dirname + '/dist'));
+app.use('/dist', express.static(path.resolve(__dirname , '../dist')))
 app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/index.html');
-});
+	res.sendFile(path.resolve(__dirname , '../index.html'))
+})
 
 http.listen(PORT, function () {
-	serverStatus();
-});
+	serverStatus()
+})
 
 function serverStatus() {
 	console.log("Server listening on:")
-	console.log(colors.cyan("http://localhost:%s"), PORT);
+	console.log(colors.cyan("http://localhost:%s"), PORT)
 
 	Object.keys(ifaces).forEach(function (ifname) {
 		ifaces[ifname].forEach(function (iface) {
 			if ('IPv4' === iface.family && iface.internal === false) {
-				console.log(colors.cyan("http://%s:%s"), iface.address, PORT);
+				console.log(colors.cyan("http://%s:%s"), iface.address, PORT)
 			}
-		});
-	});
+		})
+	})
 }
