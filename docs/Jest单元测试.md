@@ -33,7 +33,7 @@ Enzyme是Airbnb开源的React测试工具库库，它功能过对官方的测试
 安装Jest、Enzyme，以及babel-jest。如果React的版本是15或者16，需要安装对应的enzyme-adapter-react-15和enzyme-adapter-react-16并配置。
 
 ```bash
-npm i jest enzyme babel-jest enzyme-adapter-react-16 -d
+npm i jest enzyme babel-jest enzyme-adapter-react-16 -s
 ```
 
 

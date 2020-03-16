@@ -84,12 +84,18 @@ app.get('/', function (req, res) {
 	res.sendFile(path.resolve(__dirname , '../index.html'))
 })
 
-http.listen(PORT, function () {
-	serverStatus()
-})
+console.log('module.parent',module.parent)
+if(!module.parent) {
+	http.listen(PORT, function () {
+		serverStatus()
+	})
+}else{
+	module.exports = http
+}
+
 
 function serverStatus() {
-	console.log("Server listening on:")
+	console.log("1Server listening on:")
 	console.log(colors.cyan("http://localhost:%s"), PORT)
 
 	Object.keys(ifaces).forEach(function (ifname) {

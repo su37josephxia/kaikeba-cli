@@ -7,6 +7,6 @@ Enzyme.configure({ adapter: new Adapter() })    //适应React-16，初始化
 
 test('App', () => {
   const item = shallow(<App />); //传入数据'item'
-console.log('App',item.text())
+  console.log('App', item.text())
   expect(item.text()).toContain('Edit src/App.js and save to reload.Learn React')
 })

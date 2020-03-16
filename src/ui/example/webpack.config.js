@@ -36,7 +36,7 @@ module.exports = {
 	},
 	devtool: 'source-map',
 	plugins: [
-		new webpack.NormalModuleReplacementPlugin(/debug/, process.cwd() + '/src/support/noop.js'),
+		new webpack.NormalModuleReplacementPlugin(/debug/, __dirname + '/src/support/noop.js'),
 		FailPlugin,
 		new ExtractTextPlugin(project + '.example.css'),
 	],
