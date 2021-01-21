@@ -41,7 +41,7 @@
     "log-symbols": "^3.0.0",
     "open": "^7.0.2",
     "ora": "^4.0.3",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.10.0",
