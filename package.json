@@ -36,7 +36,7 @@
     "express": "^4.17.1",
     "figlet": "^1.2.4",
     "fs": "0.0.1-security",
-    "handlebars": "^4.7.3",
+    "handlebars": "^4.7.7",
     "jest": "^25.1.0",
     "log-symbols": "^3.0.0",
     "open": "^7.0.2",
