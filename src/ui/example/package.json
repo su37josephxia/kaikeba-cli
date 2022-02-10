@@ -40,7 +40,7 @@
     "webpack-fail-plugin": "^1.0.4"
   },
   "dependencies": {
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "nodemon": "^2.0.2",
     "sass": "^1.26.2",
     "socket.io-client": "^2.3.0"
